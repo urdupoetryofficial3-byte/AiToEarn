@@ -137,6 +137,7 @@ export const AccountPlatInfoMap = new Map<PlatType, IAccountPlatInfo>([
       jiancha: true,
     },
   ],
+  /*
   [
     PlatType.Tiktok,
     {
@@ -268,6 +269,7 @@ export const AccountPlatInfoMap = new Map<PlatType, IAccountPlatInfo>([
       jiancha: false,
     },
   ],
+  */
   [
     PlatType.WxSph,
     {
