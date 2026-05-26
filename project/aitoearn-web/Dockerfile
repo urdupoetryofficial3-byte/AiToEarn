@@ -5,15 +5,17 @@ ENV NODE_ENV=production
 RUN apk add --no-cache libc6-compat
 
 RUN corepack enable pnpm && corepack prepare pnpm@latest --activate
+ENV PNPM_ONLY_BUILT_DEPENDENCIES=all
 
 WORKDIR /app
 
 FROM base AS deps
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml .npmrc* ./
 COPY scripts ./scripts
 
-RUN pnpm install --frozen-lockfile --prod=false
+RUN pnpm install --frozen-lockfile --prod=false --ignore-scripts
+RUN node scripts/copy-tinymce-assets.mjs
 
 FROM base AS builder
 WORKDIR /app

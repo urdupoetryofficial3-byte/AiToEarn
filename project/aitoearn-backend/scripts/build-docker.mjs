@@ -238,8 +238,13 @@ async function buildImage(projectName, contextDir, options = {}) {
   const date = new Date().toISOString().slice(0, 10).replace(/-/g, '')
 
   // 获取 Git 短提交哈希
-  const gitHash = await $`git rev-parse --short HEAD`
-  const shortHash = gitHash.stdout.trim()
+  let shortHash = 'local'
+  try {
+    const gitHash = await $`git rev-parse --short HEAD`
+    shortHash = gitHash.stdout.trim()
+  } catch (e) {
+    // Git not available, fallback to default
+  }
 
   // 生成与 GitHub Actions 一致的标签格式
   const tag = `${date}-${shortHash}`

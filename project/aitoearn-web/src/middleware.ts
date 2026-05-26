@@ -8,7 +8,10 @@ acceptLanguage.languages(languages)
 
 export const config = {
   // matcher: '/:lng*'
-  matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|site.webmanifest).*)'],
+  matcher: [
+    '/',
+    '/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|site.webmanifest).*)',
+  ],
 }
 
 export function middleware(req: NextRequest) {
@@ -55,8 +58,10 @@ export function middleware(req: NextRequest) {
     !languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`))
     && !req.nextUrl.pathname.startsWith('/_next')
   ) {
+    const basePath = req.nextUrl.basePath || ''
+    const redirectPath = req.nextUrl.pathname === '/' ? `/${lng}` : `/${lng}${req.nextUrl.pathname}`
     return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
+      new URL(`${basePath}${redirectPath}${req.nextUrl.search}`, req.url),
     )
   }
 
