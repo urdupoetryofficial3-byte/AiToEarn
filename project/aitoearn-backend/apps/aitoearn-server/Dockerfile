@@ -12,6 +12,9 @@ FROM node:24-alpine AS production
 
 ARG APP_NAME
 
+# Speed up Alpine package downloads in China
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
 RUN apk add --no-cache curl ffmpeg
 
 WORKDIR /app
