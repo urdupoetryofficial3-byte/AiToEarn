@@ -56,7 +56,7 @@ export class AssetsModule {
       module: AssetsModule,
       imports,
       providers,
-      exports: [AssetsService, R2EventsService, VideoMetadataService, StorageProvider],
+      exports: [AssetsService, R2EventsService, VideoMetadataService, StorageProvider, ASSETS_CONFIG],
     }
   }
 }

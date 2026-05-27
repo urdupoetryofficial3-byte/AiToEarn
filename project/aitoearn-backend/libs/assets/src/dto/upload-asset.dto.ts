@@ -6,7 +6,7 @@ import { z } from 'zod'
 export const ImageMetadataSchema = z.object({
   width: z.number().positive(),
   height: z.number().positive(),
-})
+}).strict()
 
 /** 视频元数据 Schema */
 export const VideoMetadataSchema = z.object({
@@ -16,7 +16,7 @@ export const VideoMetadataSchema = z.object({
   cover: z.string().optional(), // 封面图 path
   bitrate: z.number().positive().optional(), // bps
   frameRate: z.number().positive().optional(), // fps
-})
+}).strict()
 
 /** 音频元数据 Schema */
 export const AudioMetadataSchema = z.object({
@@ -24,7 +24,7 @@ export const AudioMetadataSchema = z.object({
   bitrate: z.number().positive().optional(), // bps
   sampleRate: z.number().positive().optional(), // Hz
   channels: z.number().positive().optional(),
-})
+}).strict()
 
 /** Asset 元数据联合 Schema */
 export const AssetMetadataSchema = z.union([
