@@ -917,6 +917,7 @@ export class DraftGenerationService {
           const memoryItems = options.disableMemory
             ? []
             : (await this.draftGenerationMemoryService.getPlannerMemoryContext(userId, DraftGenerationMemoryContentType.ImageText)).memoryItems
+          let plannerModel: string | undefined
           try {
             const planned = await this.draftGenerationPlannerService.planImageText({
               userId,
@@ -933,9 +934,10 @@ export class DraftGenerationService {
               aspectRatio: options.aspectRatio,
             })
             plan = planned.plan
+            plannerModel = planned.model
 
             await this.aiLogRepository.updateById(aiLogId, {
-              $set: { 'response.plan': plan, 'request.plannerModel': planned.model },
+              $set: { 'response.plan': plan, 'request.plannerModel': plannerModel },
             })
           } catch (err) {
             this.logger.warn({ aiLogId, err }, 'ImageText: Planner failed, using direct prompt fallback')
@@ -945,13 +947,14 @@ export class DraftGenerationService {
               topics: ['ai', 'image'],
               imagePrompts: Array.from({ length: targetImageCount }, () => options.prompt || ''),
             }
+            plannerModel = 'fallback-direct'
             await this.aiLogRepository.updateById(aiLogId, {
-              $set: { 'response.plan': plan, 'request.plannerModel': 'fallback-direct' },
+              $set: { 'response.plan': plan, 'request.plannerModel': plannerModel },
             })
           }
 
           this.logger.log(
-            { aiLogId, title: plan.title, imagePromptsCount: plan.imagePrompts.length, plannerModel: planned.model },
+            { aiLogId, title: plan.title, imagePromptsCount: plan.imagePrompts.length, plannerModel },
             'ImageText: Planning completed',
           )
         }
