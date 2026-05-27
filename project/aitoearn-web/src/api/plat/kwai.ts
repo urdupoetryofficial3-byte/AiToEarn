@@ -21,7 +21,7 @@ export function createKwaiAuth(type: 'h5' | 'pc', spaceId?: string) {
   return http.get<{
     url: string
     taskId: string
-  }>(`plat/kwai/auth/url/${type}`, data)
+  }>(`plat/kwai/auth/url/${type}`, data, false, { skipAuthLogout: true })
 }
 
 export function apiGetKwaiNoUserAuthUrl(params: KwaiNoUserAuthUrlParams) {

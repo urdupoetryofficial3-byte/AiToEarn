@@ -10,6 +10,7 @@ export function getYouTubeAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/youtube/auth/url',
     method: 'GET',
     params,
+    skipAuthLogout: true,
   })
 }
 
@@ -70,6 +71,7 @@ export function getFacebookAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/meta/auth/url',
     method: 'POST',
     data,
+    skipAuthLogout: true,
   })
 }
 
@@ -97,6 +99,7 @@ export function getInstagramAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/meta/auth/url',
     method: 'POST',
     data,
+    skipAuthLogout: true,
   })
 }
 
@@ -117,6 +120,7 @@ export function getThreadsAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/meta/auth/url',
     method: 'POST',
     data,
+    skipAuthLogout: true,
   })
 }
 
@@ -137,6 +141,7 @@ export function getLinkedInAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/meta/auth/url',
     method: 'POST',
     data,
+    skipAuthLogout: true,
   })
 }
 
@@ -155,6 +160,7 @@ export function getTiktokAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/tiktok/auth/url',
     method: 'POST',
     data,
+    skipAuthLogout: true,
   })
 }
 
@@ -175,6 +181,7 @@ export function getWxGzhAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/wxGzh/auth/url/pc',
     method: 'GET',
     params,
+    skipAuthLogout: true,
   })
 }
 
@@ -200,6 +207,7 @@ export function getPinterestAuthUrlApi(mail: string, spaceId?: string) {
     url: 'plat/pinterest/getAuth',
     method: 'GET',
     params,
+    skipAuthLogout: true,
   })
 }
 

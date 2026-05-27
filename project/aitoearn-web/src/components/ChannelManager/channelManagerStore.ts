@@ -116,63 +116,63 @@ async function getAuthUrl(platform: PlatType, spaceId?: string): Promise<AuthUrl
     switch (platform) {
       case PlatType.KWAI:
         res = await createKwaiAuth('pc', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.BILIBILI:
         res = await apiGetBilibiliLoginUrl('pc', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.Douyin:
         res = await createDouyinAuth('pc', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.YouTube:
         res = await getYouTubeAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.Tiktok:
         res = await getTiktokAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.Facebook:
         res = await getFacebookAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.Instagram:
         res = await getInstagramAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.Threads:
         res = await getThreadsAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.LinkedIn:
         res = await getLinkedInAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
@@ -180,21 +180,21 @@ async function getAuthUrl(platform: PlatType, spaceId?: string): Promise<AuthUrl
       case PlatType.Twitter:
         // Twitter 使用与 Meta 系列相同的授权逻辑
         res = await getTwitterAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.taskId }
         }
         break
 
       case PlatType.WxGzh:
         res = await getWxGzhAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.url) {
           return { url: res.data.url, taskId: res.data.id || res.data.taskId }
         }
         break
 
       case PlatType.Pinterest:
         res = await getPinterestAuthUrlApi('', spaceId)
-        if (res?.data) {
+        if (res?.data?.uri) {
           return { url: res.data.uri, taskId: res.data.taskId }
         }
         break
@@ -399,6 +399,7 @@ export const useChannelManagerStore = create(
 
           if (!authData) {
             authWindow?.close()
+            toast.error(t('channelManager.authFailedTip') || 'Failed to get authorization URL')
             set({
               authState: {
                 ...get().authState,

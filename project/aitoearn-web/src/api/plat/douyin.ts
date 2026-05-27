@@ -13,7 +13,7 @@ export function createDouyinAuth(type: 'h5' | 'pc', spaceId?: string) {
   return http.get<{
     url: string
     taskId: string
-  }>(`plat/douyin/auth/url`, data)
+  }>(`plat/douyin/auth/url`, data, false, { skipAuthLogout: true })
 }
 
 /**

@@ -16,6 +16,8 @@ export function apiGetBilibiliLoginUrl(type: 'h5' | 'pc', spaceId?: string) {
   return http.get<{ code: number, data: { taskId: string, url: string } }>(
     `plat/bilibili/auth/url/${type}`,
     data,
+    false,
+    { skipAuthLogout: true },
   )
 }
 
